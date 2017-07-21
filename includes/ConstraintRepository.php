@@ -137,6 +137,11 @@ class ConstraintRepository implements ConstraintLookup {
 			$constraintTypeItemId = $result->constraint_type_qid;
 			$constraintParameters = json_decode( $result->constraint_parameters, true );
 
+			if ( $constraintParameters === null ) {
+				// T171295
+				$constraintParameters = [];
+			}
+
 			$constraints[] = new Constraint(
 				$result->constraint_guid,
 				PropertyId::newFromNumber( $result->pid ),
